@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function Capture() {
+function CaptureContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [imageKey, setImageKey] = useState("");
@@ -30,7 +30,7 @@ export default function Capture() {
   };
 
   return (
-    <div className="p-8">
+    <div>
       <h1 className="text-3xl font-bold mb-6">Capture Details</h1>
       <img
         src={localStorage.getItem(imageKey)}
@@ -62,5 +62,13 @@ export default function Capture() {
         Save
       </button>
     </div>
+  );
+}
+
+export default function Capture() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CaptureContent />
+    </Suspense>
   );
 }

@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 
-export default function View() {
+function ViewContent() {
   const [captures, setCaptures] = useState([]);
 
   useEffect(() => {
@@ -33,5 +33,13 @@ export default function View() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function View() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ViewContent />
+    </Suspense>
   );
 }

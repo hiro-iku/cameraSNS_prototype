@@ -1,9 +1,9 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 
-export default function Detail() {
+function DetailContent() {
   const { key } = useParams();
   const [capture, setCapture] = useState(null);
 
@@ -29,5 +29,13 @@ export default function Detail() {
       />
       <p className="mb-4">{capture.tags}</p>
     </div>
+  );
+}
+
+export default function Detail() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DetailContent />
+    </Suspense>
   );
 }
